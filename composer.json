@@ -1,0 +1,34 @@
+{
+	"name": "healthia-au/nookal-graphql",
+	"description": "Healthia's (partial) implementation of the Nookal GraphQL library in PHP.",
+	"keywords": [ ],
+    "homepage": "https://github.com/healthia-au/nookal-graphql",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nick Bedford",
+            "email": "nick.bedford@healthia.com.au",
+            "homepage": "https://www.healthia.com.au/",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Healthia\\Nookal\\GraphQL\\": "src/"
+        }
+    },
+	"autoload-dev": {
+		"psr-4": {
+			"Healthia\\Nookal\\Tests\\": "tests/"
+		}
+	},
+	"require": {
+		"php": ">=7.4",
+		"ext-json": "*",
+		"guzzlehttp/guzzle": "*"
+	},
+    "require-dev": {
+        "phpunit/phpunit": "*",
+		"vlucas/phpdotenv": "*"
+    }
+}
