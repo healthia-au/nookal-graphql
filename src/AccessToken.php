@@ -8,6 +8,7 @@
 	use Exception;
 	use GuzzleHttp\Client;
 	use GuzzleHttp\Exception\ClientException;
+	use Throwable;
 	
 	/**
 	 * Represents a GraphQL access token.
@@ -52,7 +53,7 @@
 		}
 		
 		/**
-		 * Determines if the access token has not yet expired.
+		 * Determines if the access token has expired.
 		 * @return bool
 		 */
 		public function hasExpired(): bool
@@ -73,7 +74,7 @@
 		 * @param string $basicKey
 		 * @param string $url
 		 * @return AccessToken
-		 * @throws Exception
+		 * @throws Throwable
 		 */
 		public static function fetch(string $basicKey, string $url = self::DefaultTokenUrl): AccessToken
 		{
@@ -109,5 +110,15 @@
 					$message .= ' - ' . $json->message;
 				throw new Exception($message, $exception->getCode(), $exception);
 			}
+		}
+		
+		/**
+		 * Creates a GraphQL session from this access token.
+		 * @param string $baseUrl
+		 * @return Session
+		 */
+		public function createSession(string $baseUrl = Session::BaseUri): Session
+		{
+			return new Session($this, $baseUrl);
 		}
 	}

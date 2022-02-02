@@ -3,25 +3,33 @@
 	
 	namespace Healthia\Nookal\GraphQL;
 	
+	use GuzzleHttp\Client;
+	
 	/**
 	 * Represents a GraphQL session.
 	 */
 	class Session
 	{
-		const BaseUrl = 'https://au-apiv3.nookal.com/graphql';
+		const BaseUri = 'https://au-apiv3.nookal.com/graphql';
 		
-		private AccessToken $token;
-		private string $baseUrl;
+		protected AccessToken $accessToken;
+		protected Client $client;
 		
 		/**
 		 * Initialises a session using an OAuth token.
-		 * @param AccessToken $token
-		 * @param string $baseUrl
+		 * @param AccessToken $accessToken
+		 * @param string $baseUri
 		 */
-		public function __construct(AccessToken $token, string $baseUrl = self::BaseUrl)
+		public function __construct(AccessToken $accessToken, string $baseUri = self::BaseUri)
 		{
-			$this->token = $token;
-			$this->baseUrl = $baseUrl;
+			$this->accessToken = $accessToken;
+			$this->client = new Client([
+				'base_uri' => $baseUri,
+				'headers' => [
+		            'Content-Type' => 'application/json',
+		            'Authorization' => 'Bearer ' . $accessToken->getAccessToken()
+		        ]
+			]);
 		}
 		
 		/**
@@ -30,6 +38,15 @@
 		 */
 		public function getAccessToken(): AccessToken
 		{
-			return $this->token;
+			return $this->accessToken;
+		}
+		
+		/**
+		 * Determines if the access token has expired.
+		 * @return bool
+		 */
+		public function accessTokenHasExpired(): bool
+		{
+			return $this->accessToken->hasExpired();
 		}
 	}
