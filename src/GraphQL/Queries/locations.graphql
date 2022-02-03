@@ -1,0 +1,58 @@
+query locations ($page: Int, $pageLength: Int, $locationIDs: [Int]) {
+    locations (page: $page, pageLength: $pageLength, locationIDs: $locationIDs) {
+        locationID
+        name
+        addr1
+        addr2
+        addr3
+        suburb
+        state
+        country
+        classes {
+            classID
+            accountingCode
+            category
+            description
+            duration
+            locationID
+            name
+            price
+            classCode
+            active
+            hasTax
+        }
+        services {
+            serviceID
+            accountingCode
+            category
+            description
+            duration
+            locationID
+            name
+            price
+            serviceCode
+            active
+            hasTax
+        }
+        stock {
+            stockID
+            productID
+            location
+            price
+            cost
+            hasTax
+            quantity
+            minQuantity
+            productDetails {
+                productID
+                accountingCode
+                category
+                description
+                name
+                sku
+                notes
+                active
+            }
+        }
+    }
+}

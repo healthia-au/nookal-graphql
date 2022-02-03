@@ -1,6 +1,4 @@
 <?php
-	/** @noinspection PhpUnused */
-	
 	namespace Healthia\Nookal\GraphQL;
 	
 	use DateTime;

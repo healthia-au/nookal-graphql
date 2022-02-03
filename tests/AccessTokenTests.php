@@ -3,6 +3,7 @@
 	
 	use Exception;
 	use Healthia\Nookal\GraphQL\AccessToken;
+	use Throwable;
 	
 	class AccessTokenTests extends TestCase
 	{
@@ -20,7 +21,7 @@
 		}
 		
 		/**
-		 * @throws Exception
+		 * @throws Throwable
 		 */
 		function testAccessTokenCanBeSuccessfullyFetched()
 		{
@@ -30,7 +31,7 @@
 		}
 		
 		/**
-		 * @throws Exception
+		 * @throws Throwable
 		 */
 		function testInvalidAccessTokenThrowsException()
 		{

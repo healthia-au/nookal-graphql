@@ -31,4 +31,6 @@
 			if (empty($this->basicKey))
 				throw new Exception('GRAPHQL_BASIC_KEY is not set in [.env].');
 		}
+		
+		
 	}

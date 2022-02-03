@@ -1,9 +1,8 @@
 <?php
-	/** @noinspection PhpUnused */
-	
 	namespace Healthia\Nookal\GraphQL;
 	
 	use GuzzleHttp\Client;
+	use Healthia\Nookal\GraphQL\Topics\Locations;
 	
 	/**
 	 * Represents a GraphQL session.
@@ -11,6 +10,7 @@
 	class Session
 	{
 		const BaseUri = 'https://au-apiv3.nookal.com/graphql';
+		const DefaultPageLength = 200;
 		
 		protected AccessToken $accessToken;
 		protected Client $client;
@@ -48,5 +48,25 @@
 		public function accessTokenHasExpired(): bool
 		{
 			return $this->accessToken->hasExpired();
+		}
+		
+		/**
+		 * Creates a query that can return a response.
+		 * @param string $graphQL
+		 * @param array $variables
+		 * @return Request
+		 */
+		public function request(string $graphQL, array $variables = []): Request
+		{
+			return new Request($this->client, $graphQL, $variables);
+		}
+		
+		/**
+		 * Gets the Locations topic.
+		 * @return Locations
+		 */
+		public function locations(): Locations
+		{
+			return new Locations($this);
 		}
 	}
