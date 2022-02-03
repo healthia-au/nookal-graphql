@@ -6,6 +6,7 @@
 	use Exception;
 	use GuzzleHttp\Client;
 	use GuzzleHttp\Exception\ClientException;
+	use GuzzleHttp\Exception\ServerException;
 	use Throwable;
 	
 	/**
@@ -86,7 +87,8 @@
 				            'Content-Type' => 'application/x-www-form-urlencoded',
 				        	'Authorization' => "Basic $basicKey"
 				        ],
-				        'body' => '"grant_type":"client_credentials"'
+				        'body' => '"grant_type":"client_credentials"',
+					    'stream' => false
 				    ]);
 				
 				$content = json_decode($response->getBody());
@@ -98,6 +100,12 @@
 				
 				return new self($accessToken,
 					(new DateTime($expiresAt, new DateTimeZone('UTC')))->getTimestamp());
+			}
+			catch(ServerException $exception)
+			{
+				$response = $exception->getResponse();
+				$message = $response->getStatusCode() . ' ' . $response->getReasonPhrase();
+				throw new Exception($message, $exception->getCode(), $exception);
 			}
 			catch(ClientException $exception)
 			{

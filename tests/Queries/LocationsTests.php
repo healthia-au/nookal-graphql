@@ -25,14 +25,4 @@
 			
 			$this->assertTrue($request->isOkay());
 		}
-		
-		/**
-		 * @throws GuzzleException
-		 */
-		function testLocationsCanBeFetchedAgain()
-		{
-			$request = $this->topic->locations(1)->send();
-			
-			$this->assertTrue($request->isOkay());
-		}
 	}
