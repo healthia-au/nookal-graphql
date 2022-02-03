@@ -1,7 +1,8 @@
 <?php
 	
-	namespace Healthia\Nookal\GraphQL\Utility;
+	namespace Healthia\Nookal\GraphQL;
 	
+	use Healthia\Nookal\GraphQL\Contracts\ArrayConvertible;
 	use ReflectionClass;
 	use ReflectionNamedType;
 	use ReflectionProperty;

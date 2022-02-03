@@ -1,7 +1,9 @@
 <?php
 	namespace Healthia\Nookal\GraphQL\Topics;
 	
+	use Healthia\Nookal\GraphQL\Converters\ObjectResponseConverter;
 	use Healthia\Nookal\GraphQL\GraphQLCache;
+	use Healthia\Nookal\GraphQL\Objects\LocationLogo;
 	use Healthia\Nookal\GraphQL\Request;
 	use Healthia\Nookal\GraphQL\Session;
 	use Healthia\Nookal\GraphQL\Topic;
@@ -23,10 +25,21 @@
 			int $pageLength = Session::DefaultPageLength,
 			array $locationIds = []): Request
 		{
-			return $this->session->request(GraphQLCache::main()->query('locations'), [
-				'page' => $page,
-				'pageLength' => $pageLength,
-				'locationIds' => $locationIds
-			]);
+			return $this->session->request(
+				GraphQLCache::main()->query('locations'),
+				compact('page', 'pageLength', 'locationIds'));
+		}
+		
+		/**
+		 * Queries the locations in the organisation.
+		 * @param int $locationId
+		 * @return Request
+		 */
+		public function locationLogo(int $locationId): Request
+		{
+			return $this->session->request(
+				GraphQLCache::main()->query('locations'),
+				compact('locationId'),
+				new ObjectResponseConverter(LocationLogo::class));
 		}
 	}

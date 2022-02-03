@@ -1,6 +1,6 @@
 <?php
 	
-	namespace Healthia\Nookal\GraphQL\Utility;
+	namespace Healthia\Nookal\GraphQL\Contracts;
 	
 	/**
 	 * Defines the interface to a class convertible from an array.

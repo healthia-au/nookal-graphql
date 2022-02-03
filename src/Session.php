@@ -2,6 +2,7 @@
 	namespace Healthia\Nookal\GraphQL;
 	
 	use GuzzleHttp\Client;
+	use Healthia\Nookal\GraphQL\Contracts\ResponseConverterInterface;
 	use Healthia\Nookal\GraphQL\Topics\Locations;
 	
 	/**
@@ -51,14 +52,18 @@
 		}
 		
 		/**
-		 * Creates a query that can return a response.
-		 * @param string $graphQL
-		 * @param array $variables
+		 * Creates a GraphQL request.
+		 * @param string $graphQL The GraphQL query or mutation.
+		 * @param array $variables The variables to use in the request.
+		 * @param ResponseConverterInterface|null $responseConverter
 		 * @return Request
 		 */
-		public function request(string $graphQL, array $variables = []): Request
+		public function request(
+			string $graphQL,
+			array $variables = [],
+			?ResponseConverterInterface $responseConverter = null): Request
 		{
-			return new Request($this->client, $graphQL, $variables);
+			return new Request($this->client, $graphQL, $variables, $responseConverter);
 		}
 		
 		/**

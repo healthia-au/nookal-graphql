@@ -1,0 +1,8 @@
+query locationLogo ($locationID: Int) {
+    locationLogo (locationID: $locationID) {
+        s3Url
+        fileName
+        extension
+        response
+    }
+}

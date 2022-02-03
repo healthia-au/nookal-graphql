@@ -3,9 +3,10 @@
 	
 	namespace Healthia\Nookal\Tests;
 	
-	use Healthia\Nookal\GraphQL\Utility\ArrayConvertible;
-	use Healthia\Nookal\GraphQL\Utility\Convert;
+	use Healthia\Nookal\GraphQL\Contracts\ArrayConvertible;
+	use Healthia\Nookal\GraphQL\Convert;
 	use Throwable;
+	use function value_for_key_path;
 	
 	class NestedObject
 	{
@@ -94,5 +95,18 @@
 			$this->assertSame(2, $object->ints[1]);
 			$this->assertSame(3, $object->ints[2]);
 			$this->assertSame(1, $object->ints[3]);
+		}
+		
+		function testValueForKeyPath()
+		{
+			$array = [
+				'one' => [
+					'two' => [
+						'three' => 4
+					]
+				]
+			];
+			
+			$this->assertSame(4, value_for_key_path($array, [ 'one', 'two', 'three' ]));
 		}
 	}
